@@ -1,0 +1,88 @@
+header {
+    width: 100vw;
+    height: 5vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: lightblue;
+    margin-top: 0%;
+    font-size: larger;
+    z-index: 0; 
+}
+
+#left_pane {
+  position: fixed;
+  top: 5vh;
+  left: 0;
+  width: 22.5vw;             
+  height: 95vh;           
+  background-color: gray;
+  overflow-y: auto;        
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+#center_canvas {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 350px;
+  height: 350px;
+  background-color: #333;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  z-index: 1; 
+}
+
+#my_canvas {
+    border: 2px solid #333;
+    background: white;
+    font-family: inter;
+    border-radius: 10px;
+}
+
+#text_area {
+  width: 80%;
+  max-width: 400px;
+  height: 120px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  resize: vertical; 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 5px;
+}
+
+button {
+    padding: 10px;
+    width: 80%;
+    font-size: 14px;
+    background: #4CAF50;
+    color: white;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#card_content_title {
+    font-size: larger;
+}
+
+#edit_area_title {
+    position: fixed;
+    top: 5vh; /* directly below the header (header height = 10vh) */
+    left: 22.5vw; 
+    right: 0; /* stretch to the right edge */
+    height: 5vh;
+    background-color: lightgray;
+    box-sizing: border-box;
+    z-index: 1; /* ensure it sits above #center_window */
+    padding: 8px;
+}
+
+#edit_area_title p {
+    margin: 0;
+    font-size: large;
+    font-weight: bold;
+}

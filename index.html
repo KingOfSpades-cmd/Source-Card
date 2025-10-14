@@ -1,0 +1,29 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Source Card Website</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+ </head>
+ <body>
+    <header> Source Card: Create Beautiful Text Cards </header>
+   <!--Left Pane-->
+    <div id = 'left_pane'>
+      <div id = "text_input">
+         <p id="card_content_title">card content</p>
+         <textarea id="text_area" rows="5" cols="40" placeholder="Type your thoughts here..."></textarea>
+         <button onclick="drawText()">Draw Text on Canvas</button>
+      </div>
+   </div>
+   <!--Edit Area Title-->
+   <div id="edit_area_title">
+      <p>Preview</p>
+   </div>
+   <!--Center Window-->
+    <div id = 'center_canvas'>
+      <canvas id="my_canvas" width="350" height="350" ></canvas>
+    </div>
+ </body>
+ </html>
