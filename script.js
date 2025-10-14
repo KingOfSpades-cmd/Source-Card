@@ -97,6 +97,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Function to download the canvas as PNG
+    function downloadCanvas() {
+        const link = document.createElement('a');
+        link.download = 'source-card.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    }
+    
     // Initial draw
     drawText();
     
