@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Text input element
     const textArea = document.getElementById('text_area');
     
+    // Download button
+    const downloadBtn = document.getElementById('download_btn');
+    
     // Function to wrap text into lines
     function wrapText(text, maxWidth, fontSize) {
         ctx.font = `${fontSize}px Inter`;
@@ -104,6 +107,9 @@ document.addEventListener('DOMContentLoaded', function() {
         link.href = canvas.toDataURL('image/png');
         link.click();
     }
+    
+    // Attach event listener to download button
+    downloadBtn.addEventListener('click', downloadCanvas);
     
     // Initial draw
     drawText();
