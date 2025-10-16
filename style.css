@@ -1,13 +1,26 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    background-color: lightgray;
+    overflow: hidden; /* Prevent scrolling */
+}
+
 header {
     width: 100vw;
     height: 5vh;
     position: fixed;
     left: 0;
     top: 0;
-    background-color: lightblue;
+    background-color: white;
     margin-top: 0%;
     font-size: larger;
     z-index: 0; 
+    font-family: inter;
+    border: 3px solid gray;
+    border-top: 0px;
+    border-left: 0px;
 }
 
 #left_pane {
@@ -16,14 +29,15 @@ header {
   left: 0;
   width: 22.5vw;             
   height: 95vh;           
-  background-color: gray;
+  background-color: white;
   overflow-y: auto;        
+  border: 1px solid gray;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 }
 
 #center_canvas {
   position: fixed;
-  top: 50%;
+  top: 45%;
   left: 50%;
   width: 350px;
   height: 350px;
@@ -31,6 +45,7 @@ header {
   transform: translate(-50%, -50%);
   border-radius: 4px;
   z-index: 1; 
+  font-family: inter;
 }
 
 #my_canvas {
@@ -38,6 +53,7 @@ header {
     background: white;
     font-family: inter;
     border-radius: 10px;
+    border: 2px solid gray
 }
 
 #text_area {
@@ -51,6 +67,7 @@ header {
   resize: vertical; 
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   margin: 5px;
+  font-family: inter;
 }
 
 #download_btn {
@@ -63,10 +80,12 @@ header {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: inter;
 }
 
 #card_content_title {
     font-size: larger;
+    font-family: inter;
 }
 
 #edit_area_title {
@@ -75,14 +94,17 @@ header {
     left: 22.5vw; 
     right: 0; /* stretch to the right edge */
     height: 5vh;
-    background-color: lightgray;
+    background-color: white;
     box-sizing: border-box;
     z-index: 1; /* ensure it sits above #center_window */
     padding: 8px;
+    font-family: inter;
+    border: 1px solid gray;
 }
 
 #edit_area_title p {
     margin: 0;
     font-size: large;
     font-weight: bold;
+    font-family: inter;
 }
