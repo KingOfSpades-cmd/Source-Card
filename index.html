@@ -11,18 +11,33 @@
  <body>
    <!--Left Pane-->
     <div id = 'left_pane'>
-      <div id = "text_input">
-         <p id="card_content_title">Card Content</p>
-         <textarea id="text_area" rows="5" cols="40" placeholder="Type your thoughts here..."></textarea>
-         <button id="download_btn">Download Card</button>
+         <div id = "text_input">
+            <p id="card_content_title">Card Content</p>
+            <textarea id="text_area" rows="5" cols="40" placeholder="Type your thoughts here..."></textarea>
+            <button id="download_btn">Download Card</button>
+         </div>
+      <!--Profile Area-->
+      <div id="profile_area">
+         <p id="profile_title">Show Profile</p> <!--This will eventually be a toggle to show the profile details-->
+         <p id="profile_detail">Profile Picture</p> <!--Unstyled-->
+         <img id="profile_pic" src="icon.svg" width="20" height="20" alt="Profile Picture"/> <!--This should have the profile pic svg-->
+         <button width="80" height="30" id="upload_btn">
+            Upload
+            <input type="file" id="upload_profile" accept="image/*"> 
+         </button><!--Should have "Upload along side the upload svg inside of it, might need to turn this into a div"-->
+         <input type="text" id="username_input" placeholder="Enter Username">
+         <input type="text" id="social_media_handle_input" placeholder="Enter Handle">
       </div>
+      <!--/Profile Area-->
    </div>
-   <!--Edit Area Title-->
-   <div id="edit_area_title">
-      <p>Preview</p>
-   </div>
-   <!--/Edit Area Title-->
    <!--/Left Pane-->
+
+   <!--Edit Area Title-->
+      <div id="edit_area_title">
+         <p>Preview</p>
+      </div>
+   <!--/Edit Area Title-->
+
    <!--Center Window-->
     <div id = 'center_canvas'>
       <canvas id="my_canvas" width="550" height="450" ></canvas>

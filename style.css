@@ -28,6 +28,10 @@ header {
 
 #left_pane {
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding-top: 8px;
   top: 5vh;
   left: 0;
   width: 22.5vw;             
@@ -37,6 +41,34 @@ header {
   border: 1px solid lightgray;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 }
+
+/* Profile Area */
+#profile_area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid #e0e0e0;
+  font-family: inter;
+}
+
+#profile_title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: inter;
+}
+
+#profile_detail {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: inter;
+}
+
+
+
+/* /Profile Area */
 
 #center_canvas {
   position: fixed;
