@@ -19,19 +19,22 @@
       <!--Profile Area-->
       <div id="profile_area">
          <div id="profile_toggle">
-            <p id="profile_title">Show Profile</p> <!--This will eventually be a toggle to show the profile details-->
+            <p id="profile_title">Show Profile</p>
             <label class="switch">
                <input type="checkbox">
                <span class="slider"></span>
             </label>
          </div>
-            <p id="profile_detail">Profile Picture</p> <!--Unstyled-->
-         <img id="profile_pic" src="icon.svg" width="20" height="20" alt="Profile Picture"/> <!--This should have the profile pic svg-->
-         <button width="80" height="30" id="upload_btn">
-            Upload
-            <input type="file" id="upload_profile" accept="image/*"> 
-         </button><!--Should have "Upload along side the upload svg inside of it, might need to turn this into a div"-->
-         <input type="text" id="username_input" placeholder="Enter Username">
+            <p id="profile_detail">Profile Picture</p> 
+            <svg width="40" height="40" viewBox="0 0 24 24">
+               <circle cx="12" cy="8" r="4" fill="#ccc"/>
+               <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="#ccc"/>
+            </svg>
+         <label for="upload_profile" id="upload_button">
+            Upload Profile
+         </label><!--Should have "Upload along side the upload svg inside of it, might need to turn this into a div"-->
+         <input type="file" id="upload_profile" accept="image/*"> 
+         <input type="text" id="username_input" placeholder="Enter Username" >
          <input type="text" id="social_media_handle_input" placeholder="Enter Handle">
       </div>
       <!--/Profile Area-->
