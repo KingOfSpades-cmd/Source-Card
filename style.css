@@ -160,7 +160,7 @@ input:checked + .slider:before {
 #profile_area input[type="text"] {
     width: calc(100% - 20px); /* Fill the pane minus some padding */
     padding: 12px;
-    margin: 8px 5px;          /* Vertical spacing between them */
+    margin: 8px 5px;          
     border: 1px solid #ddd;
     border-radius: 6px;
     font-family: 'Inter', sans-serif;
@@ -169,7 +169,6 @@ input:checked + .slider:before {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* Add a nice highlight when you click into them */
 #profile_area input[type="text"]:focus {
     border-color: #2196f3;
     outline: none;
@@ -226,7 +225,7 @@ input:checked + .slider:before {
 
 #download_btn {
     padding: 10px;
-    width: 98%;
+    width: calc(100% - 10px);
     font-size: 14px;
     background: #4CAF50;
     color: white;
