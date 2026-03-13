@@ -138,6 +138,13 @@ input:checked + .slider:before {
     display: none;
 }
 
+#profile_upload_wrapper {
+    display: flex;
+    align-items: center; /* Vertically centers the SVG and Button */
+    gap: 10px;           /* Adds space between the SVG and the Button */
+    margin-left: 5px;    /* Aligns with the other inputs */
+}
+
 #upload_button {
     display: inline-block;
     padding: 10px 20px;
@@ -148,7 +155,7 @@ input:checked + .slider:before {
     font-size: 14px;
     font-family: inter, sans-serif;
     text-align: center;
-    margin: 10px 5px;
+    margin: 0; 
     border: none;
     transition: background 0.3s;
 }

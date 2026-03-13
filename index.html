@@ -25,19 +25,22 @@
                <span class="slider"></span>
             </label>
          </div>
-            <p id="profile_detail">Profile Picture</p> 
-            <svg width="40" height="40" viewBox="0 0 24 24">
-               <circle cx="12" cy="8" r="4" fill="#ccc"/>
-               <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="#ccc"/>
-            </svg>
-         <label for="upload_profile" id="upload_button">
-            Upload Profile
-         </label><!--Should have "Upload along side the upload svg inside of it, might need to turn this into a div"-->
+            <p id="profile_detail">Profile Picture</p>
+            <div id="profile_upload_wrapper">
+               <svg width="40" height="40" viewBox="0 0 24 24">
+                  <circle cx="12" cy="8" r="4" fill="#ccc"/>
+                  <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="#ccc"/>
+               </svg>
+               <label for="upload_profile" id="upload_button">
+                  Upload Profile
+               </label><!--Should have "Upload along side the upload svg inside of it, might need to turn this into a div"-->
+            </div> 
          <input type="file" id="upload_profile" accept="image/*"> 
          <input type="text" id="username_input" placeholder="Enter Username">
          <input type="text" id="social_media_handle_input" placeholder="Enter Handle">
       </div>
       <!--/Profile Area-->
+      
       <!--Typography-->
       <!--//TODO: have to connect the typography changes with script-->
       <!--Typography title-->
@@ -54,8 +57,6 @@
          <label for="font_size">Font Size:</label>
          <input type="number" id="font_size" min="10" max="72" value="16">
          <br/>
-         <label for="font_color">Font Color:</label>
-         <input type="color" id="font_color" value="#000000">
       </div>
       <!--/Typography title-->
       <!--Typography body-->
@@ -72,8 +73,6 @@
          <label for="font_size">Font Size:</label>
          <input type="number" id="font_size" min="10" max="72" value="16">
          <br/>
-         <label for="font_color">Font Color:</label>
-         <input type="color" id="font_color" value="#000000">
       </div>
       <!--/Typography body-->
       <!--/Typography-->
