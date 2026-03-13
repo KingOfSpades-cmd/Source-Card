@@ -192,9 +192,62 @@ input:checked + .slider:before {
 
 /* /Profile Area */
 
-/* Typography */
-    /* This is where the typography styles will live */
-/* /Typography */
+/* Typography and General Control Sections */
+
+.control_section {
+    padding: 15px 10px;
+    border-bottom: 1px solid #e0e0e0;
+    font-family: 'Inter', sans-serif;
+}
+
+.section_subtitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input_group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.input_group label {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+/* Styling Select and Number Inputs */
+.custom_select,
+.custom_number_input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    background-color: white;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.custom_select:focus,
+.custom_number_input:focus {
+    border-color: #2196f3;
+    outline: none;
+}
+
+/* Optional: Apply the same section styling to Border area for consistency */
+#border_area {
+    padding: 15px 10px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* /Typography and General Control Sections */
 
 #center_canvas {
   position: fixed;

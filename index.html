@@ -40,23 +40,25 @@
          <input type="text" id="social_media_handle_input" placeholder="Enter Handle">
       </div>
       <!--/Profile Area-->
-      
+
       <!--Typography-->
       <!--//TODO: have to connect the typography changes with script-->
       <!--Typography title-->
-      <div id="typography_area">
-         <p id="typography_title">Title</p>
-         <label for="font_select">Font Style:</label>
-         <select id="font_select">
-            <option value="Inter">Inter</option>
-            <option value="Arial">Arial</option>
-            <option value="Times New Roman">Times New Roman</option>
-            <option value="Courier New">Courier New</option>
-         </select>
-         <br/>
-         <label for="font_size">Font Size:</label>
-         <input type="number" id="font_size" min="10" max="72" value="16">
-         <br/>
+      <div class="control_section">
+         <p class="section_subtitle">Title Typography</p>
+         <div class="input_group">
+            <label for="title_font_style">Font Style:</label>
+            <select id="title_font_style" class="custom_select">
+               <option value="Inter">Inter</option>
+               <option value="Arial">Arial</option>
+               <option value="Times New Roman">Times New Roman</option>
+               <option value="Courier New">Courier New</option>
+            </select>
+         </div>
+         <div class="input_group">
+            <label for="body_font_size">Font Size</label>
+            <input type="number" id="body_font_size" class="custom_number_input" min="10" max="72" value="16">
+         </div>
       </div>
       <!--/Typography title-->
       <!--Typography body-->
