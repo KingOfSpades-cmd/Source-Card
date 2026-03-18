@@ -18,7 +18,7 @@
          </div>
       <!--Profile Area-->
       <div id="profile_area">
-         <div id="profile_toggle">
+         <div class="control_header">
             <p id="profile_title">Show Profile</p>
             <label class="switch">
                <input type="checkbox">
@@ -84,14 +84,22 @@
       <!--/Typography-->
       
       <!--Card Border-->
-      <div id="border_area">
-         <p id="border_title">Border</p>
-         <label for="border_color">Border Color:</label>
-         <label> <input type="checkbox" id="toggle"> Enable Border </label> <!--This will be used to toggle the border on and off, it should look like a toggle so we need to style it-->
-         <input type="color" id="border_color" value="#000000">
-         <br/>
-         <label for="border_width">Border Width:</label>
-         <input type="number" id="border_width" min="0" max="20" value="1">
+      <div class="control_section">
+         <div class="control_header">
+            <p class="section_subtitle">Card Border</p>
+            <label class="switch">
+               <input type="checkbox" id="toggle_border">
+               <span class="slider"></span>
+            </label>
+         </div>
+         <div class="input_group">
+            <label for="border_width">Border Width</label>
+            <input type="number" id="border_width" class="custom_number_input" min="0" max="20" value="1">
+         </div>
+         <div class="input_group">
+            <label for="border_color">Border Color</label>
+            <input type="color" id="border_color" value="#000000">
+         </div>
       </div>
       <!--/Card Border-->
    <!--/Left Pane-->

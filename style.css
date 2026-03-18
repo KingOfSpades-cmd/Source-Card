@@ -162,6 +162,21 @@ input:checked + .slider:before {
 
 /* /Upload button */
 
+/* Header Toggles*/
+
+.control_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.control_header .section_subtitle,
+.control_header #profile_title {
+    margin-bottom: 0;
+}
+/* /Header Toggles*/
+
 /* Profile Input Fields */
 /* Style the input fields in the profile area */
 #profile_area input[type="text"] {
