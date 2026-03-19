@@ -17,14 +17,18 @@
             <button id="download_btn">Download Card</button>
          </div>
       <!--Profile Area-->
-      <div id="profile_area">
-         <div class="control_header">
-            <p id="profile_title">Show Profile</p>
+      <div class="control_section">
+         <!--Header with toggle-->
+         <div class="section_header">
+            <p class="section_subtitle">Show Profile</p>
             <label class="switch">
                <input type="checkbox">
                <span class="slider"></span>
             </label>
          </div>
+
+         <!--Profile Picture Details -->
+         <div class="input_group">
             <p id="profile_detail">Profile Picture</p>
             <div id="profile_upload_wrapper">
                <svg width="40" height="40" viewBox="0 0 24 24">
@@ -33,11 +37,22 @@
                </svg>
                <label for="upload_profile" id="upload_button">
                   Upload Profile
-               </label><!--Should have "Upload along side the upload svg inside of it, might need to turn this into a div"-->
-            </div> 
-         <input type="file" id="upload_profile" accept="image/*"> 
-         <input type="text" id="username_input" placeholder="Enter Username">
-         <input type="text" id="social_media_handle_input" placeholder="Enter Handle">
+               </label>
+            </div>
+            <input type="file" id="upload_profile" accept="image/*"> 
+         </div>
+
+         <!--Username Group-->
+         <div class="input_group">
+            <label for="username_input">Username</label>
+            <input type="text" id="username_input" class="custom_text_input" placeholder="Enter Username">
+         </div>
+
+         <!--Social Media Handle Group-->
+         <div class="input_group">
+            <label for="social_media_handle_input">Social Media Handle</label>
+            <input type="text" id="social_media_handle_input" class="custom_text_input" placeholder="Enter Handle">
+         </div>
       </div>
       <!--/Profile Area-->
 
@@ -85,7 +100,7 @@
       
       <!--Card Border-->
       <div class="control_section">
-         <div class="control_header">
+         <div class="section_header">
             <p class="section_subtitle">Card Border</p>
             <label class="switch">
                <input type="checkbox" id="toggle_border">

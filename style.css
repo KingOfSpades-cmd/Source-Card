@@ -53,12 +53,7 @@ header {
 }
 
 
-#profile_title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  font-family: inter;
-}
+
 
 #profile_detail {
     font-size: 12px;
@@ -126,12 +121,7 @@ input:checked + .slider:before {
 
 }
 
-#profile_title {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 0;
-    font-family: inter;
-}
+
 
 /* Upload button */
 #upload_profile {
@@ -164,43 +154,30 @@ input:checked + .slider:before {
 
 /* Header Toggles*/
 
-.control_header {
+.section_header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
     margin-bottom: 12px;
 }
 
-.control_header .section_subtitle,
-.control_header #profile_title {
+.section_header .section_subtitle {
     margin-bottom: 0;
 }
+
 /* /Header Toggles*/
 
 /* Profile Input Fields */
-/* Style the input fields in the profile area */
-#profile_area input[type="text"] {
-    width: calc(100% - 20px); /* Fill the pane minus some padding */
-    padding: 12px;
-    margin: 8px 5px;          
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    box-sizing: border-box;    /* Ensures padding doesn't break the width */
-    transition: border-color 0.2s, box-shadow 0.2s;
+
+#profile_detail {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 8px;
+    text-transform: none;
+    font-weight: 500;
 }
 
-#profile_area input[type="text"]:focus {
-    border-color: #2196f3;
-    outline: none;
-    box-shadow: 0 0 5px rgba(33, 150, 243, 0.2);
-}
-
-/* Optional: Make the placeholders a bit lighter */
-#profile_area input[type="text"]::placeholder {
-    color: #aaa;
-}
 /* /Profile Input Fields */
 
 /* /Show Profile Toggle */
@@ -237,6 +214,24 @@ input:checked + .slider:before {
 }
 
 /* Styling Select and Number Inputs */
+
+.custom_text_input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    margin-bottom: 10px;
+}
+
+.custom_text_input:focus {
+    border-color: #2196f3;
+    outline: none;
+}
+
 .custom_select,
 .custom_number_input {
     width: 100%;
@@ -336,4 +331,8 @@ input:checked + .slider:before {
     font-size: large;
     font-weight: bold;
     font-family: inter;
+}
+
+footer {
+    margin-bottom: 30px;
 }
