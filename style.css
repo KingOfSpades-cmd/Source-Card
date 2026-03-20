@@ -233,7 +233,8 @@ input:checked + .slider:before {
 }
 
 .custom_select,
-.custom_number_input {
+.custom_number_input,
+.custom_range_input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -243,6 +244,11 @@ input:checked + .slider:before {
     background-color: white;
     transition: border-color 0.2s;
     box-sizing: border-box;
+}
+
+.custom_range_input {
+    padding: 10px 0;
+    cursor: pointer;
 }
 
 .custom_select:focus,
@@ -261,22 +267,25 @@ input:checked + .slider:before {
 
 #center_canvas {
   position: fixed;
-  top: 45%;
-  left: 50%;
-  width: 350px;
-  height: 350px;
-  background-color: lightgray;
+  top: 50%;
+  left: 60%;
+  width: 550px;
+  height: 450px;
+  background-color: #f3f4f6;
   transform: translate(-50%, -50%);
   border-radius: 2px;
   z-index: 1; 
   font-family: inter;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #my_canvas {
     background: white;
     font-family: inter;
     border-radius: 10px;
-    border: 2px solid gray
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 #text_area {

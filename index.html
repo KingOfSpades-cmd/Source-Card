@@ -6,66 +6,24 @@
     <title>Source Card Website</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
- </head>
+   </head>
    <header> Source Card: Create Internet Posters </header>
- <body>
-   <!--Left Pane-->
-    <div id = 'left_pane'>
+   <body>
+      <!--Left Pane-->
+      <div id = 'left_pane'>
          <div id = "text_input">
             <p id="card_content_title">Card Content</p>
             <textarea id="text_area" rows="5" cols="40" placeholder="Type your thoughts here..."></textarea>
             <button id="download_btn">Download Card</button>
          </div>
-      <!--Profile Area-->
-      <div class="control_section">
-         <!--Header with toggle-->
-         <div class="section_header">
-            <p class="section_subtitle">Show Profile</p>
-            <label class="switch">
-               <input type="checkbox">
-               <span class="slider"></span>
-            </label>
-         </div>
-
-         <!--Profile Picture Details -->
+         <!--Typography body-->
+         <div class="control_section"> 
+       <p class="section_subtitle">Body Typography</p> 
          <div class="input_group">
-            <p id="profile_detail">Profile Picture</p>
-            <div id="profile_upload_wrapper">
-               <svg width="40" height="40" viewBox="0 0 24 24">
-                  <circle cx="12" cy="8" r="4" fill="#ccc"/>
-                  <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="#ccc"/>
-               </svg>
-               <label for="upload_profile" id="upload_button">
-                  Upload Profile
-               </label>
-            </div>
-            <input type="file" id="upload_profile" accept="image/*"> 
-         </div>
-
-         <!--Username Group-->
-         <div class="input_group">
-            <label for="username_input">Username</label>
-            <input type="text" id="username_input" class="custom_text_input" placeholder="Enter Username">
-         </div>
-
-         <!--Social Media Handle Group-->
-         <div class="input_group">
-            <label for="social_media_handle_input">Social Media Handle</label>
-            <input type="text" id="social_media_handle_input" class="custom_text_input" placeholder="Enter Handle">
-         </div>
-      </div>
-      <!--/Profile Area-->
-
-      <!--Typography-->
-      <!--//TODO: have to connect the typography changes with script-->
-      <!--Typography title-->
-      <div class="control_section">
-         <p class="section_subtitle">Title Typography</p>
-         <div class="input_group">
-            <label for="title_font_style">Font Style</label>
-            <select id="title_font_style" class="custom_select">
+            <label for="body_font_style">Font Style</label>
+            <select id="body_font_style" class="custom_select">
                <option value="Inter">Inter</option>
-               <option value="Arial">Arial</option>
+               <option value="Arial">Ariel</option>
                <option value="Times New Roman">Times New Roman</option>
                <option value="Courier New">Courier New</option>
             </select>
@@ -75,26 +33,83 @@
             <input type="number" id="body_font_size" class="custom_number_input" min="10" max="72" value="16">
          </div>
       </div>
+       <!--/Typography body-->
+      <!--Profile Area-->
+      <div class="control_section">
+         <!--Header with toggle-->
+         <div class="section_header">
+            <p class="section_subtitle">Show Profile</p>
+            <label class="switch">
+               <input type="checkbox" id="toggle_profile">
+               <span class="slider"></span>
+            </label>
+         </div>
+
+         <div id="profile_controls" style="display: none;">
+            <!--Profile Picture Details -->
+            <div class="input_group">
+               <p id="profile_detail">Profile Picture</p>
+               <div id="profile_upload_wrapper">
+                  <svg id="profile_preview_svg" width="40" height="40" viewBox="0 0 24 24">
+                     <circle cx="12" cy="8" r="4" fill="#ccc"/>
+                     <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="#ccc"/>
+                  </svg>
+                  <img id="profile_preview_img" width="40" height="40" style="display: none; border-radius: 50%; object-fit: cover;">
+                  <label for="upload_profile" id="upload_button">
+                     Upload Profile
+                  </label>
+               </div>
+               <input type="file" id="upload_profile" accept="image/*"> 
+            </div>
+
+            <!--Username Group-->
+            <div class="input_group">
+               <label for="username_input">Username</label>
+               <input type="text" id="username_input" class="custom_text_input" placeholder="Enter Username">
+            </div>
+
+            <!--Social Media Handle Group-->
+            <div class="input_group">
+               <label for="social_media_handle_input">Social Media Handle</label>
+               <input type="text" id="social_media_handle_input" class="custom_text_input" placeholder="Enter Handle">
+            </div>
+         </div>
+      </div>
+      <!--/Profile Area-->
+
+      <!--Typography-->
+      <!--//TODO: have to connect the typography changes with script-->
+      <!--Typography title-->
+      <div class="control_section">
+         <div class="section_header">
+            <p class="section_subtitle">Title Typography</p>
+            <label class="switch">
+               <input type="checkbox" id="toggle_title">
+               <span class="slider"></span>
+            </label>
+         </div>
+         <div id="title_controls" style="display: none;">
+            <div class="input_group">
+               <label for="title_input">Title Text</label>
+               <input type="text" id="title_input" class="custom_text_input" placeholder="Enter Title">
+            </div>
+            <div class="input_group">
+               <label for="title_font_style">Font Style</label>
+               <select id="title_font_style" class="custom_select">
+                  <option value="Inter">Inter</option>
+                  <option value="Arial">Arial</option>
+                  <option value="Times New Roman">Times New Roman</option>
+                  <option value="Courier New">Courier New</option>
+               </select>
+            </div>
+            <div class="input_group">
+               <label for="title_font_size">Font Size</label>
+               <input type="number" id="title_font_size" class="custom_number_input" min="10" max="72" value="24">
+            </div>
+         </div>
+      </div>
       <!--/Typography title-->
 
-      <!--Typography body-->
-     <div class="control_section"> 
-      <p class="section_subtitle">Body Typography</p> 
-      <div class="input_group">
-         <label for="body_font_style">Font Style</label>
-         <select id="body_font_style" class="custom_select">
-            <option value="Inter">Inter</option>
-            <option value="Arial">Ariel</option>
-            <option value="Times New Roman">Times New Roman</option>
-            <option value="Courier New">Courier New</option>
-         </select>
-      </div>
-      <div class="input_group">
-         <label for="body_font_size">Font Size</label>
-         <input type="number" id="body_font_size" class="custom_number_input" min="10" max="72" value="16">
-      </div>
-     </div>
-      <!--/Typography body-->
       
       <!--/Typography-->
       
@@ -107,13 +122,15 @@
                <span class="slider"></span>
             </label>
          </div>
-         <div class="input_group">
-            <label for="border_width">Border Width</label>
-            <input type="number" id="border_width" class="custom_number_input" min="0" max="20" value="1">
-         </div>
-         <div class="input_group">
-            <label for="border_color">Border Color</label>
-            <input type="color" id="border_color" value="#000000">
+         <div id="border_controls" style="display: none;">
+            <div class="input_group">
+               <label for="border_width">Border Width</label>
+               <input type="range" id="border_width" class="custom_range_input" min="1" max="10" value="1">
+            </div>
+            <div class="input_group">
+               <label for="border_color">Border Color</label>
+               <input type="color" id="border_color" value="#000000">
+            </div>
          </div>
       </div>
       <!--/Card Border-->
