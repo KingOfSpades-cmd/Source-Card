@@ -43,7 +43,7 @@ header span {
 /* Header word styles: specific word treatments */
 .make {
     font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif;
-    font-weight: 25;
+    font-weight: 800; /* fixed invalid weight (was 25) */
     color: #111827;
     margin-left: 6px;
     letter-spacing: -0.01em;
@@ -51,7 +51,7 @@ header span {
 }
 
 .beautiful {
-    font-family: 'Berkshire Swash', italic;
+    font-family: 'Berkshire Swash', cursive; /* fixed invalid font family (was italic) */
     font-size: 1.05rem;
     color: #059669; /* toned purple */ 
     margin: 0 6px;
@@ -442,9 +442,6 @@ input:checked + .slider:before {
         color: #374151; /* darker gray */
         text-transform: uppercase;
         letter-spacing: 0.05em;
-    }
-        height: auto;
-        padding: 12px 20px;
     }
 
     .app-container {
