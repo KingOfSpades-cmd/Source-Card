@@ -4,19 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Source Card Website</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+   <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
    </head>
    <body>
-      <header> <span>Source Card:</span> Make beautiful internet cards </header>
-      <!--Left Pane-->
-      <div id = 'left_pane'>
-         <div id = "text_input" class="control_section">
-            <p id="card_content_title">Card Content</p>
-            <textarea id="text_area" rows="5" cols="40" placeholder="Type your thoughts here..."></textarea>
-            <button id="download_btn">Download Card</button>
-         </div>
-         <!--Typography body-->
+      <header>
+         <span class="brand">Source Card:</span>
+         <span class="make">Make</span>
+         <span class="beautiful">beautiful</span>
+         <span>Internet</span>
+         <span class="card-pill">Cards</span>
+      </header>
+      
+      <main class="app-container">
+         <!--Left Pane-->
+         <div id = 'left_pane'>
+            <div id = "text_input" class="control_section">
+               <p id="card_content_title">Card Content</p>
+               <textarea id="text_area" rows="5" cols="40" placeholder="Type your thoughts here..."></textarea>
+               <button id="download_btn">Download Card</button>
+            </div>
+            <!--Typography body-->
          <div class="control_section"> 
        <p class="section_subtitle">Body Typography</p> 
          <div class="input_group">
@@ -133,21 +142,24 @@
             </div>
          </div>
       </div>
-      <!--/Card Border-->
-   <!--/Left Pane-->
-
-   <!--Edit Area Title-->
-      <div id="edit_area_title">
-         <p>Preview</p>
+         <!--/Card Border-->
       </div>
-   <!--/Edit Area Title-->
+      <!--/Left Pane-->
 
-   <!--Center Window-->
-    <div id = 'center_canvas'>
-      <canvas id="my_canvas" width="550" height="450" ></canvas>
-    </div>
-    <!--Center Window-->
-    <footer> Made by Myles </footer>
-    <script src="script.js"></script>
+      <!--Preview Area-->
+      <div id="preview_area">
+         <div id="edit_area_title">
+            <p>Preview</p>
+         </div>
+
+         <!--Center Window-->
+         <div id = 'center_canvas'>
+            <canvas id="my_canvas" width="550" height="450" ></canvas>
+         </div>
+      </div>
+   </main>
+   <!--/Center Window-->
+   <footer> Made by Myles </footer>
+   <script src="script.js"></script>
  </body>
  </html>
