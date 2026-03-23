@@ -43,7 +43,7 @@ header span {
 /* Header word styles: specific word treatments */
 .make {
     font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif;
-    font-weight: 800; /* fixed invalid weight (was 25) */
+    font-weight: 500; /* fixed invalid weight (was 25) */
     color: #111827;
     margin-left: 6px;
     letter-spacing: -0.01em;
