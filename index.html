@@ -174,5 +174,12 @@
       </div>
    </footer>
    <script src="script.js"></script>
+   <script type="module">
+      import { SpeedInsights } from 'https://unpkg.com/@vercel/speed-insights?module';
+      SpeedInsights();
+      import { Analytics } from "@vercel/analytics/next"
+      Analytics();
+   </script>
+   <script src="script.js"></script>
  </body>
  </html>
