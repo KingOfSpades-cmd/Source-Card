@@ -1,6 +1,5 @@
 // Wait for DOM to be ready
-import { SpeedInsights } from "@vercel/speed-insights/next"
-SpeedInsights();
+
 document.addEventListener('DOMContentLoaded', function() {
     const canvas = document.getElementById('my_canvas');
     const ctx = canvas.getContext('2d');
