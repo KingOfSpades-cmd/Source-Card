@@ -14,6 +14,42 @@ body {
     min-height: 95vh;
 }
 
+/* Responsive Header Fix */
+@media (max-width: 600px) {
+    header {
+        height: auto; /* Allow header to grow if text wraps */
+        min-height: 60px;
+        padding: 10px 15px;
+        flex-wrap: wrap; /* Let spans wrap to the next line if needed */
+        justify-content: center; /* Center items on mobile */
+        text-align: center;
+        position: relative; /* Avoid overlapping content if header grows */
+    }
+
+    header span {
+        margin-right: 5px;
+        font-size: 0.9rem; /* Slightly smaller text for mobile */
+    }
+
+    .make {
+        font-size: 1.1rem;
+    }
+
+    .beautiful {
+        font-size: 1rem;
+    }
+
+    .card-pill {
+        font-size: 0.85rem;
+        padding: 2px 6px;
+    }
+
+    /* Adjust the app-container margin because header height changed */
+    .app-container {
+        margin-top: 0; 
+    }
+}
+
 header {
     width: 100%;
     height: 5vh;
