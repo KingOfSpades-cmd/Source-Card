@@ -219,15 +219,69 @@ document.addEventListener('DOMContentLoaded', function() {
     profilePreviewSvg.addEventListener('click', () => uploadProfile.click());
     profilePreviewImg.addEventListener('click', () => uploadProfile.click());
 
-    function downloadCanvas() {
-        const link = document.createElement('a');
-        link.download = 'source-card.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-    }
 
-    downloadBtn.addEventListener('click', downloadCanvas);
     
     // Initial draw
     drawCanvas();
+
+    // Single download handler: generate blob, trigger download, then show donation modal
+    downloadBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (downloadBtn.disabled) return;
+        downloadBtn.disabled = true;
+        canvas.toBlob(function(blob) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'source-card.png';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+            showDonationModal();
+            setTimeout(() => downloadBtn.disabled = false, 500);
+        }, 'image/png');
+    });
+
+    function showDonationModal() {
+        // Respect user's "don't show again" preference
+        try {
+            if (localStorage.getItem('donation_do_not_show') === '1') return;
+        } catch (err) {
+            // ignore localStorage errors (e.g., private mode)
+        }
+        const modal = document.getElementById('donation_modal');
+        modal.setAttribute('aria-hidden', 'false');
+        // focus the primary CTA
+        const cta = modal.querySelector('.donation-btn');
+        cta && cta.focus();
+        // prevent quick double-opens
+        modal.dataset.opened = '1';
+    }
+    function hideDonationModal() {
+        const modal = document.getElementById('donation_modal');
+        // persist "don't show again" if user checked it
+        const checkbox = modal.querySelector('#donation_dont_show');
+        if (checkbox && checkbox.checked) {
+            try {
+                localStorage.setItem('donation_do_not_show', '1');
+            } catch (err) {
+                /* ignore */
+            }
+        }
+        modal.setAttribute('aria-hidden', 'true');
+        // return focus to download button
+        document.getElementById('download_btn').focus();
+    }
+
+    document.getElementById('donation_close').addEventListener('click', hideDonationModal);
+    document.getElementById('donation_no').addEventListener('click', hideDonationModal);
+
+    // close on backdrop click
+    document.querySelector('.donation-modal__backdrop').addEventListener('click', hideDonationModal);
+
+    // close on Escape
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') hideDonationModal();
+    });
 });

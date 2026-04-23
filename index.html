@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
  <html lang="en">
  <head>
     <meta charset="UTF-8">
@@ -174,6 +174,24 @@
        <div class="footer-spacer"></div>
       </div>
    </footer>
+   <div id="donation_modal" class="donation-modal" aria-hidden="true" aria-labelledby="donation_title" aria-describedby="donation_desc" role="dialog">
+  <div class="donation-modal__backdrop" data-close></div>
+  <div class="donation-modal__panel" role="document">
+    <button id="donation_close" class="donation-modal__close" aria-label="Close">✕</button>
+    <div class="donation-modal__content">
+      <img src="sc_favicon.png" alt="" class="donation-modal__logo" />
+      <h2 id="donation_title">Enjoying Source Card?</h2>
+      <p id="donation_desc">If you liked this, support me on Ko‑fi — it helps me build new features and save for a PC.</p>
+      <div class="donation-modal__actions">
+        <a class="donation-btn" href="https://ko-fi.com/E1E1167TOR" target="_blank" rel="noopener">Support on Ko‑fi — $3</a>
+        <button id="donation_no" class="donation-btn--ghost">No thanks</button>
+      </div>
+         <div class="donation-modal__footer">
+            <label class="dont-show"><input type="checkbox" id="donation_dont_show"> Don't show this again</label>
+         </div>
+    </div>
+  </div>
+</div>
    <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
    </script>
