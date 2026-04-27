@@ -243,6 +243,57 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 'image/png');
     });
 
+    // Copy to clipboard handler
+    const copyBtn = document.getElementById('copy_to_clipboard_btn');
+    const copyFeedback = document.getElementById('copy_feedback');
+
+    if (copyBtn) {
+        copyBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (copyBtn.disabled) return;
+            copyBtn.disabled = true;
+
+            canvas.toBlob(function(blob) {
+                if (navigator.clipboard && window.ClipboardItem) {
+                    const item = new ClipboardItem({ 'image/png': blob });
+                    navigator.clipboard.write([item]).then(() => {
+                        // show tick state and feedback
+                        copyBtn.classList.add('copied');
+                        if (copyFeedback) {
+                            copyFeedback.hidden = false;
+                            copyFeedback.textContent = 'Copied to clipboard';
+                        }
+                        setTimeout(() => {
+                            copyBtn.classList.remove('copied');
+                            if (copyFeedback) copyFeedback.hidden = true;
+                            copyBtn.disabled = false;
+                        }, 1500);
+                    }).catch(err => {
+                        console.error('Failed to copy image to clipboard', err);
+                        if (copyFeedback) {
+                            copyFeedback.hidden = false;
+                            copyFeedback.textContent = 'Copy failed — try downloading instead';
+                        }
+                        setTimeout(() => {
+                            if (copyFeedback) copyFeedback.hidden = true;
+                            copyBtn.disabled = false;
+                        }, 1800);
+                    });
+                } else {
+                    // Fallback: inform user that browser doesn't support direct image clipboard writes
+                    if (copyFeedback) {
+                        copyFeedback.hidden = false;
+                        copyFeedback.textContent = 'Your browser does not support copying images to clipboard. Use Download.';
+                    }
+                    setTimeout(() => {
+                        if (copyFeedback) copyFeedback.hidden = true;
+                        copyBtn.disabled = false;
+                    }, 2000);
+                }
+            }, 'image/png');
+        });
+    }
+
     function showDonationModal() {
         // Respect user's "don't show again" preference
         try {
