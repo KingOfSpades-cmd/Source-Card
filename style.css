@@ -248,6 +248,15 @@ header span {
     #center_canvas {
         padding: 20px;
     }
+
+    /* On small screens, show the preview (canvas) above the left controls for better UX */
+    #preview_area {
+        order: -1;
+    }
+
+    #left_pane {
+        order: 1;
+    }
 }
 
 
@@ -397,6 +406,55 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(16px);
 }
+
+/* Button group: download (80%) + copy (20%) */
+.button_group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+#download_btn {
+    flex: 4 1 0%;
+}
+
+#copy_to_clipboard_btn {
+    flex: 1 1 0%;
+    padding: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.08s;
+}
+
+#copy_to_clipboard_btn:hover {
+    background: #1d4ed8;
+}
+
+/* When copied, turn green and show tick */
+#copy_to_clipboard_btn.copied {
+    background: #10b981;
+}
+
+#copy_to_clipboard_btn .icon-tick { display: none; } /* removed tick usage; kept for backward compat */
+
+.copy-feedback {
+    display: inline-block;
+    margin: 8px auto 0 auto;
+    text-align: center;
+    color: #065f46;
+    background: rgba(16,185,129,0.08);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.copy-feedback[hidden] { display: none; }
 
 .section_header {
     display: flex;
