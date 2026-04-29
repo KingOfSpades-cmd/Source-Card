@@ -1,9 +1,3 @@
-Since the app is about radical simplicity and the "death of the author," your README should feel less like a dry technical manual and more like a manifesto. 
-
-Here is a draft that captures that "no ego, just ideas" energy.
-
----
-
 # 🗂️ Source Card
 
 > **"It fits inside an image. It articulates one idea. And it's designed to be shared as an image."**
