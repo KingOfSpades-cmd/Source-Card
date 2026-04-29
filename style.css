@@ -201,6 +201,10 @@ header span {
     cursor: pointer;
     font-family: 'Inter', sans-serif;
     transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 #download_btn:hover {
@@ -317,6 +321,31 @@ header span {
     border-color: #3b82f6;
     outline: none;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-with-prefix { display:flex; align-items:center; gap:0; }
+.input-with-prefix .input-prefix {
+  display:inline-flex;
+  align-items:center;
+  padding:10px 12px;
+  background:#f3f4f6;
+  color:#374151;
+  border:1px solid #e5e7eb;
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  font-weight:600;
+  box-sizing: border-box;
+  height:40px;
+}
+.input-with-prefix .custom_text_input {
+  border-radius: 0 8px 8px 0;
+  border-left: none;
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  padding-left: 12px;
+  height:40px;
+  box-sizing: border-box;
 }
 
 #text_area {
