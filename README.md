@@ -31,7 +31,6 @@ This is a lightweight frontend application that "bakes" text into pixels.
 ### 🎨 Customization (The "Remix" Spirit)
 While the design is intentionally minimal, the code allows for:
 * **Dynamic Typography:** Type scales automatically to fit the card.
-* **Theme Toggles:** Dark mode (The Void) and Light mode (The Paper).
 * **Export:** Instant `.png` generation for Twitter, Discord, and Instagram.
 
 ---
