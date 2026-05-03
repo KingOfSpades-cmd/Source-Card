@@ -40,4 +40,4 @@ While the design is intentionally minimal, the code allows for:
 
 ---
 
-> "Why do you want to know where your ideas come from anyway? Are you paranoid or something?"
+> "Your source for Images to post anywhere on the internet"
