@@ -229,11 +229,30 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         if (downloadBtn.disabled) return;
         downloadBtn.disabled = true;
+
+        let textSource='';
+        if (toggleTitle.checked && titleInput.value.trim()) {
+            textSource = titleInput.value.trim();
+        } else if (textArea.value.trim()) {
+            textSource = textArea.value.trim();
+        }
+
+        let fileName = 'source-card';
+        if (textSource) {
+            const words = textSource.trim().split(/\s+/).slice(0, 5);
+            const sanitizedWords = words
+                .map(word => word.replace(/[^a-zA-Z0-9]/gi, ''))
+                .filter(word => word.length > 0);
+            if (sanitizedWords.length > 0) {
+                fileName = sanitizedWords.join('-').toLowerCase();
+            }
+        }
+
         canvas.toBlob(function(blob) {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'source-card.png';
+            a.download = fileName ? `${fileName}.png` : 'source-card.png';
             document.body.appendChild(a);
             a.click();
             a.remove();
