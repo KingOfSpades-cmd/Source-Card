@@ -17,36 +17,70 @@ body {
 /* Responsive Header Fix */
 @media (max-width: 600px) {
     header {
-        height: auto; /* Allow header to grow if text wraps */
+        height: auto;
         min-height: 60px;
         padding: 10px 15px;
-        flex-wrap: wrap; /* Let spans wrap to the next line if needed */
-        justify-content: center; /* Center items on mobile */
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 4px 6px;
         text-align: center;
-        position: relative; /* Avoid overlapping content if header grows */
+        position: relative;
+        box-sizing: border-box;
     }
 
     header span {
-        margin-right: 5px;
-        font-size: 0.9rem; /* Slightly smaller text for mobile */
+        margin-right: 0;
+        font-size: 0.85rem;
+        line-height: 1.2;
+        white-space: nowrap;
+    }
+
+    .brand {
+        margin-right: 2px;
     }
 
     .make {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
+        margin-left: 0;
     }
 
     .beautiful {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        margin: 0 4px;
     }
 
     .card-pill {
-        font-size: 0.85rem;
-        padding: 2px 6px;
+        font-size: 0.8rem;
+        padding: 3px 7px;
+        margin-left: 0;
     }
 
-    /* Adjust the app-container margin because header height changed */
     .app-container {
-        margin-top: 0; 
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 420px) {
+    header {
+        padding: 8px 12px;
+        gap: 3px 5px;
+    }
+
+    header span {
+        font-size: 0.75rem;
+    }
+
+    .make {
+        font-size: 0.95rem;
+    }
+
+    .beautiful {
+        font-size: 0.88rem;
+    }
+
+    .card-pill {
+        font-size: 0.7rem;
     }
 }
 
@@ -132,7 +166,8 @@ header span {
 }
 
 #edit_area_title {
-    height: 5vh;
+    min-height: 5vh;
+    height: auto;
     background-color: white;
     border-bottom: 1px solid #e5e7eb;
     display: flex;
@@ -141,6 +176,7 @@ header span {
     position: sticky;
     top: 5vh;
     z-index: 10;
+    overflow-wrap: break-word;
 }
 
 #edit_area_title p {
@@ -150,6 +186,7 @@ header span {
     color: #4b5563;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    white-space: nowrap;
 }
 
 #center_canvas {
