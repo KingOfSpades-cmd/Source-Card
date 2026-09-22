@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const canvas = document.getElementById('my_canvas');
     const ctx = canvas.getContext('2d');
-    const textArea = document.getElementById('text_area');
+    const textEditor = document.getElementById('canvas_text_editor');
     const downloadBtn = document.getElementById('download_btn');
 
     // Controls
@@ -29,6 +29,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const borderColorInput = document.getElementById('border_color');
 
     let profileImage = null;
+
+    function getEditorText() {
+        return textEditor.innerText.replace(/\u00a0/g, ' ').replace(/\n+$/, '');
+    }
+
+    function positionTextEditor(currentY, font, fontSize) {
+        const canvasRect = canvas.getBoundingClientRect();
+        const scale = canvasRect.width / canvas.width;
+        textEditor.style.left = `${40 * scale}px`;
+        textEditor.style.top = `${currentY * scale}px`;
+        textEditor.style.width = `${(canvas.width - 80) * scale}px`;
+        textEditor.style.fontFamily = font;
+        textEditor.style.fontSize = `${fontSize * scale}px`;
+        textEditor.style.lineHeight = `${1.4 * fontSize * scale}px`;
+    }
 
     // Wrap text but respect explicit newline characters
     function wrapText(text, maxWidth, font, fontSize) {
@@ -156,11 +171,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Draw Body Text
-        let text = textArea.value;
-        if (!text) text = 'Type your thoughts here...';
-
         const bFont = bodyFontFamily.value;
         const bSize = parseInt(bodyFontSize.value);
+        positionTextEditor(currentY, bFont, bSize);
+        let text = getEditorText();
+        if (!text) text = 'Type your thoughts here...';
+
         ctx.font = `${bSize}px ${bFont}`;
         ctx.fillStyle = '#000';
         ctx.textAlign = 'left';
@@ -209,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Input listeners
-    [textArea, bodyFontFamily, bodyFontSize, usernameInput, handleInput, titleInput, titleFontFamily, titleFontSize, borderWidthInput, borderColorInput].forEach(el => {
+    [textEditor, bodyFontFamily, bodyFontSize, usernameInput, handleInput, titleInput, titleFontFamily, titleFontSize, borderWidthInput, borderColorInput].forEach(el => {
         el.addEventListener('input', drawCanvas);
     });
 
@@ -233,8 +249,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let textSource='';
         if (toggleTitle.checked && titleInput.value.trim()) {
             textSource = titleInput.value.trim();
-        } else if (textArea.value.trim()) {
-            textSource = textArea.value.trim();
+        } else if (getEditorText().trim()) {
+            textSource = getEditorText().trim();
         }
 
         let fileName = 'source-card';
