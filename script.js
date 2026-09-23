@@ -30,9 +30,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const borderColorInput = document.getElementById('border_color');
 
     let profileImage = null;
+    let isResizingCanvas = false;
 
     function getEditorText() {
-        return textEditor.innerText.replace(/\u00a0/g, ' ').replace(/\n+$/, '');
+        const lines = Array.from(textEditor.childNodes).map(node => {
+            if (node.nodeType === Node.TEXT_NODE) return node.textContent;
+            if (node.nodeName === 'BR') return '';
+            return node.textContent || '';
+        });
+        return lines.join('\n').replace(/\u00a0/g, ' ').replace(/\n+$/, '');
     }
 
     function positionTextEditor(currentY, font, fontSize) {
@@ -184,6 +190,16 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.textBaseline = 'top';
 
         const bodyLines = wrapText(text, canvas.width - padding * 2, bFont, bSize);
+        const lastBodyLineY = currentY + Math.max(0, bodyLines.length - 1) * bSize * 1.4;
+        const requiredHeight = Math.ceil(Math.max(450, lastBodyLineY + bSize * 1.4 + 10));
+        if (canvas.height !== requiredHeight && !isResizingCanvas) {
+            isResizingCanvas = true;
+            canvas.height = requiredHeight;
+            drawCanvas(forceBodyText);
+            isResizingCanvas = false;
+            return;
+        }
+
         if (forceBodyText) {
             for (const line of bodyLines) {
                 ctx.fillText(line, padding, currentY);
