@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const borderColorInput = document.getElementById('border_color');
 
     let profileImage = null;
+    let editorFocused = false;
 
     function getEditorText() {
         return textEditor.innerText.replace(/\u00a0/g, ' ').replace(/\n+$/, '');
@@ -75,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return lines;
     }
 
-    function drawCanvas() {
+    function drawCanvas(forceBodyText = false) {
         // Clear canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -183,9 +184,11 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.textBaseline = 'top';
 
         const bodyLines = wrapText(text, canvas.width - padding * 2, bFont, bSize);
-        for (const line of bodyLines) {
-            ctx.fillText(line, padding, currentY);
-            currentY += bSize * 1.4;
+        if (forceBodyText || !editorFocused) {
+            for (const line of bodyLines) {
+                ctx.fillText(line, padding, currentY);
+                currentY += bSize * 1.4;
+            }
         }
     }
 
@@ -226,10 +229,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Input listeners
     [textEditor, bodyFontFamily, bodyFontSize, usernameInput, handleInput, titleInput, titleFontFamily, titleFontSize, borderWidthInput, borderColorInput].forEach(el => {
-        el.addEventListener('input', drawCanvas);
+        el.addEventListener('input', () => drawCanvas());
     });
 
     uploadProfile.addEventListener('change', handleImageUpload);
+
+    textEditor.addEventListener('focus', () => {
+        editorFocused = true;
+        textEditor.classList.add('editing');
+        drawCanvas();
+    });
+
+    textEditor.addEventListener('blur', () => {
+        editorFocused = false;
+        textEditor.classList.remove('editing');
+        drawCanvas();
+    });
 
     // Click SVG to upload
     profilePreviewSvg.addEventListener('click', () => uploadProfile.click());
@@ -245,6 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         if (downloadBtn.disabled) return;
         downloadBtn.disabled = true;
+        drawCanvas(true);
 
         let textSource='';
         if (toggleTitle.checked && titleInput.value.trim()) {
@@ -287,6 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             if (copyBtn.disabled) return;
             copyBtn.disabled = true;
+            drawCanvas(true);
 
             canvas.toBlob(function(blob) {
                 if (navigator.clipboard && window.ClipboardItem) {
