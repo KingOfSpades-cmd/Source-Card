@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const borderColorInput = document.getElementById('border_color');
 
     let profileImage = null;
-    let editorFocused = false;
 
     function getEditorText() {
         return textEditor.innerText.replace(/\u00a0/g, ' ').replace(/\n+$/, '');
@@ -184,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.textBaseline = 'top';
 
         const bodyLines = wrapText(text, canvas.width - padding * 2, bFont, bSize);
-        if (forceBodyText || !editorFocused) {
+        if (forceBodyText) {
             for (const line of bodyLines) {
                 ctx.fillText(line, padding, currentY);
                 currentY += bSize * 1.4;
@@ -235,13 +234,11 @@ document.addEventListener('DOMContentLoaded', function() {
     uploadProfile.addEventListener('change', handleImageUpload);
 
     textEditor.addEventListener('focus', () => {
-        editorFocused = true;
         textEditor.classList.add('editing');
         drawCanvas();
     });
 
     textEditor.addEventListener('blur', () => {
-        editorFocused = false;
         textEditor.classList.remove('editing');
         drawCanvas();
     });
@@ -289,6 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
             a.click();
             a.remove();
             URL.revokeObjectURL(url);
+            drawCanvas();
             showDonationModal();
             setTimeout(() => downloadBtn.disabled = false, 500);
         }, 'image/png');
@@ -306,6 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
             drawCanvas(true);
 
             canvas.toBlob(function(blob) {
+                drawCanvas();
                 if (navigator.clipboard && window.ClipboardItem) {
                     const item = new ClipboardItem({ 'image/png': blob });
                     navigator.clipboard.write([item]).then(() => {

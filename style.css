@@ -434,7 +434,7 @@ input:checked + .slider:before {
 #canvas_text_editor {
     position: absolute;
     min-height: 1em;
-    color: transparent;
+    color: #000;
     text-align: left;
     white-space: pre-wrap;
     overflow-wrap: break-word;
@@ -446,7 +446,7 @@ input:checked + .slider:before {
 
 #canvas_text_editor:empty::before {
     content: attr(data-placeholder);
-    color: transparent;
+    color: #9ca3af;
     pointer-events: none;
 }
 
