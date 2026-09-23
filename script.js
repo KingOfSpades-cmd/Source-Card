@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const canvas = document.getElementById('my_canvas');
     const ctx = canvas.getContext('2d');
     const textEditor = document.getElementById('canvas_text_editor');
+    const canvasStage = document.querySelector('.canvas-stage');
     const downloadBtn = document.getElementById('download_btn');
 
     // Controls
@@ -241,6 +242,18 @@ document.addEventListener('DOMContentLoaded', function() {
     textEditor.addEventListener('blur', () => {
         textEditor.classList.remove('editing');
         drawCanvas();
+    });
+
+    canvasStage.addEventListener('click', (event) => {
+        if (event.target !== canvas && event.target !== canvasStage) return;
+
+        textEditor.focus({ preventScroll: true });
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(textEditor);
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
     });
 
     // Click SVG to upload
