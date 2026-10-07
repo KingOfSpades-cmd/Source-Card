@@ -310,6 +310,43 @@ header span {
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
+.alignment-control {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: hidden;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+.alignment-option {
+    min-width: 0;
+    padding: 8px 4px;
+    border: 0;
+    border-right: 1px solid #e5e7eb;
+    background: #fff;
+    color: #374151;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.alignment-option:last-child {
+    border-right: 0;
+}
+
+.alignment-option.is-active {
+    background: #ecfdf5;
+    color: #065f46;
+    font-weight: 700;
+}
+
+.alignment-option:focus-visible {
+    position: relative;
+    z-index: 1;
+    outline: 2px solid #059669;
+    outline-offset: -2px;
+}
+
 .input-with-prefix { display:flex; align-items:center; gap:0; }
 .input-with-prefix .input-prefix {
   display:inline-flex;

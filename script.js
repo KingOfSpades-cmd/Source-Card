@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Controls
     const bodyFontFamily = document.getElementById('body_font_style');
     const bodyFontSize = document.getElementById('body_font_size');
+    const bodyTextAlignment = document.getElementById('body_text_alignment');
     
     const toggleProfile = document.getElementById('toggle_profile');
     const profileControls = document.getElementById('profile_controls');
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const titleInput = document.getElementById('title_input');
     const titleFontFamily = document.getElementById('title_font_style');
     const titleFontSize = document.getElementById('title_font_size');
+    const titleTextAlignment = document.getElementById('title_text_alignment');
 
     const toggleBorder = document.getElementById('toggle_border');
     const borderControls = document.getElementById('border_controls');
@@ -41,7 +43,17 @@ document.addEventListener('DOMContentLoaded', function() {
         return lines.join('\n').replace(/\u00a0/g, ' ').replace(/\n+$/, '');
     }
 
-    function positionTextEditor(currentY, font, fontSize) {
+    function getSelectedAlignment(control) {
+        return control.querySelector('[aria-pressed="true"]').dataset.alignment;
+    }
+
+    function getAlignedTextX(alignment, width, padding) {
+        if (alignment === 'center') return width / 2;
+        if (alignment === 'right') return width - padding;
+        return padding;
+    }
+
+    function positionTextEditor(currentY, font, fontSize, alignment) {
         const canvasRect = canvas.getBoundingClientRect();
         const scale = canvasRect.width / canvas.width;
         textEditor.style.left = `${40 * scale}px`;
@@ -50,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         textEditor.style.fontFamily = font;
         textEditor.style.fontSize = `${fontSize * scale}px`;
         textEditor.style.lineHeight = `${1.4 * fontSize * scale}px`;
+        textEditor.style.textAlign = alignment;
     }
 
     // Wrap text but respect explicit newline characters
@@ -163,15 +176,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const titleText = titleInput.value;
             const tFont = titleFontFamily.value;
             const tSize = parseInt(titleFontSize.value);
+            const alignment = getSelectedAlignment(titleTextAlignment);
 
             ctx.fillStyle = '#000';
             ctx.font = `bold ${tSize}px ${tFont}`;
-            ctx.textAlign = 'left';
+            ctx.textAlign = alignment;
             ctx.textBaseline = 'top';
 
             const titleLines = wrapText(titleText, canvas.width - padding * 2, `bold ${tSize}px`, tFont);
+            const titleX = getAlignedTextX(alignment, canvas.width, padding);
             for (const line of titleLines) {
-                ctx.fillText(line, padding, currentY);
+                ctx.fillText(line, titleX, currentY);
                 currentY += tSize * 1.2;
             }
             currentY += 10;
@@ -180,16 +195,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // Draw Body Text
         const bFont = bodyFontFamily.value;
         const bSize = parseInt(bodyFontSize.value);
-        positionTextEditor(currentY, bFont, bSize);
+        const bodyAlignment = getSelectedAlignment(bodyTextAlignment);
+        positionTextEditor(currentY, bFont, bSize, bodyAlignment);
         let text = getEditorText();
         if (!text) text = 'Type your thoughts here...';
 
         ctx.font = `${bSize}px ${bFont}`;
         ctx.fillStyle = '#000';
-        ctx.textAlign = 'left';
+        ctx.textAlign = bodyAlignment;
         ctx.textBaseline = 'top';
 
         const bodyLines = wrapText(text, canvas.width - padding * 2, bFont, bSize);
+        const bodyX = getAlignedTextX(bodyAlignment, canvas.width, padding);
         const lastBodyLineY = currentY + Math.max(0, bodyLines.length - 1) * bSize * 1.4;
         const requiredHeight = Math.ceil(Math.max(450, lastBodyLineY + bSize * 1.4 + 10));
         if (canvas.height !== requiredHeight && !isResizingCanvas) {
@@ -202,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (forceBodyText) {
             for (const line of bodyLines) {
-                ctx.fillText(line, padding, currentY);
+                ctx.fillText(line, bodyX, currentY);
                 currentY += bSize * 1.4;
             }
         }
@@ -246,6 +263,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Input listeners
     [textEditor, bodyFontFamily, bodyFontSize, usernameInput, handleInput, titleInput, titleFontFamily, titleFontSize, borderWidthInput, borderColorInput].forEach(el => {
         el.addEventListener('input', () => drawCanvas());
+    });
+
+    [bodyTextAlignment, titleTextAlignment].forEach(control => {
+        control.addEventListener('click', event => {
+            const selectedButton = event.target.closest('[data-alignment]');
+            if (!selectedButton) return;
+
+            control.querySelectorAll('[data-alignment]').forEach(button => {
+                const isSelected = button === selectedButton;
+                button.classList.toggle('is-active', isSelected);
+                button.setAttribute('aria-pressed', String(isSelected));
+            });
+            drawCanvas();
+        });
     });
 
     uploadProfile.addEventListener('change', handleImageUpload);
