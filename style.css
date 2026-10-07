@@ -281,11 +281,117 @@ header span {
     margin-bottom: 16px;
 }
 
+[hidden] {
+    display: none !important;
+}
+
 .input_group label {
     font-size: 13px;
     font-weight: 500;
     color: #374151;
     margin-bottom: 6px;
+}
+
+.section_disclosure {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+}
+
+.section_disclosure .section_subtitle {
+    margin: 0;
+}
+
+.section-chevron {
+    width: 8px;
+    height: 8px;
+    margin-right: 4px;
+    border-right: 2px solid #6b7280;
+    border-bottom: 2px solid #6b7280;
+    transform: rotate(45deg);
+    transition: transform 0.15s ease;
+}
+
+.section_disclosure[aria-expanded="true"] .section-chevron {
+    transform: rotate(225deg);
+}
+
+.section_disclosure:focus-visible {
+    outline: 2px solid #059669;
+    outline-offset: 5px;
+}
+
+#card_settings_controls {
+    padding-top: 20px;
+}
+
+.settings-divider {
+    margin: 4px 0 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.color-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.color-pair input,
+#background_color {
+    width: 100%;
+    height: 40px;
+    padding: 4px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #fff;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.upload-background-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #f9fafb;
+    color: #374151;
+    cursor: pointer;
+}
+
+.upload-background-button:hover {
+    background: #f3f4f6;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+.visually-hidden:focus-visible + .background-image-name {
+    outline: 2px solid #059669;
+    outline-offset: 2px;
+}
+
+.background-image-name {
+    margin-top: 8px;
+    color: #6b7280;
+    font-size: 12px;
+    overflow-wrap: anywhere;
 }
 
 /* Form Inputs */

@@ -30,8 +30,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const borderControls = document.getElementById('border_controls');
     const borderWidthInput = document.getElementById('border_width');
     const borderColorInput = document.getElementById('border_color');
+    const toggleCardSettings = document.getElementById('toggle_card_settings');
+    const cardSettingsControls = document.getElementById('card_settings_controls');
+    const backgroundModeControl = document.getElementById('background_mode');
+    const backgroundColorControls = document.getElementById('background_color_controls');
+    const backgroundGradientControls = document.getElementById('background_gradient_controls');
+    const backgroundImageControls = document.getElementById('background_image_controls');
+    const backgroundColorInput = document.getElementById('background_color');
+    const gradientColorStartInput = document.getElementById('gradient_color_start');
+    const gradientColorEndInput = document.getElementById('gradient_color_end');
+    const uploadCardBackground = document.getElementById('upload_card_background');
+    const backgroundImageName = document.getElementById('background_image_name');
 
     let profileImage = null;
+    let cardBackgroundImage = null;
+    let cardBackgroundMode = 'color';
     let isResizingCanvas = false;
 
     function getEditorText() {
@@ -102,13 +115,32 @@ document.addEventListener('DOMContentLoaded', function() {
         const bWidth = toggleBorder.checked ? (parseInt(borderWidthInput.value) || 0) : 0;
         const radius = 10; // Match CSS border-radius
 
-        // White background (clipped to rounded rectangle for exports)
+        // Clip the selected background to the card's rounded corners.
         ctx.save();
         ctx.beginPath();
         ctx.roundRect(0, 0, canvas.width, canvas.height, radius);
         ctx.clip();
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        if (cardBackgroundMode === 'gradient') {
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, gradientColorStartInput.value);
+            gradient.addColorStop(1, gradientColorEndInput.value);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        } else if (cardBackgroundMode === 'image' && cardBackgroundImage) {
+            const scale = Math.max(canvas.width / cardBackgroundImage.width, canvas.height / cardBackgroundImage.height);
+            const imageWidth = cardBackgroundImage.width * scale;
+            const imageHeight = cardBackgroundImage.height * scale;
+            ctx.drawImage(
+                cardBackgroundImage,
+                (canvas.width - imageWidth) / 2,
+                (canvas.height - imageHeight) / 2,
+                imageWidth,
+                imageHeight
+            );
+        } else {
+            ctx.fillStyle = backgroundColorInput.value || '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
         ctx.restore();
 
         const padding = 40;
@@ -256,13 +288,56 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     toggleBorder.addEventListener('change', () => {
-        borderControls.style.display = toggleBorder.checked ? 'block' : 'none';
+        borderControls.hidden = !toggleBorder.checked;
+        drawCanvas();
+    });
+
+    toggleCardSettings.addEventListener('change', () => {
+        cardSettingsControls.hidden = !toggleCardSettings.checked;
+    });
+
+    backgroundModeControl.addEventListener('click', event => {
+        const selectedButton = event.target.closest('[data-background]');
+        if (!selectedButton) return;
+
+        cardBackgroundMode = selectedButton.dataset.background;
+        backgroundModeControl.querySelectorAll('[data-background]').forEach(button => {
+            const isSelected = button === selectedButton;
+            button.classList.toggle('is-active', isSelected);
+            button.setAttribute('aria-pressed', String(isSelected));
+        });
+        backgroundColorControls.hidden = cardBackgroundMode !== 'color';
+        backgroundGradientControls.hidden = cardBackgroundMode !== 'gradient';
+        backgroundImageControls.hidden = cardBackgroundMode !== 'image';
         drawCanvas();
     });
 
     // Input listeners
-    [textEditor, bodyFontFamily, bodyFontSize, usernameInput, handleInput, titleInput, titleFontFamily, titleFontSize, borderWidthInput, borderColorInput].forEach(el => {
+    [textEditor, bodyFontFamily, bodyFontSize, usernameInput, handleInput, titleInput, titleFontFamily, titleFontSize, borderWidthInput, borderColorInput, backgroundColorInput, gradientColorStartInput, gradientColorEndInput].forEach(el => {
         el.addEventListener('input', () => drawCanvas());
+    });
+
+    uploadCardBackground.addEventListener('change', event => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = loadEvent => {
+            const image = new Image();
+            image.onload = () => {
+                cardBackgroundImage = image;
+                backgroundImageName.textContent = file.name;
+                drawCanvas();
+            };
+            image.onerror = () => {
+                backgroundImageName.textContent = 'Unable to load image';
+            };
+            image.src = loadEvent.target.result;
+        };
+        reader.onerror = () => {
+            backgroundImageName.textContent = 'Unable to load image';
+        };
+        reader.readAsDataURL(file);
     });
 
     [bodyTextAlignment, titleTextAlignment].forEach(control => {
