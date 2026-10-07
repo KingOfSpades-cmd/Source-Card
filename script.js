@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const backgroundColorInput = document.getElementById('background_color');
     const gradientColorStartInput = document.getElementById('gradient_color_start');
     const gradientColorEndInput = document.getElementById('gradient_color_end');
+    const borderColorValue = document.getElementById('border_color_value');
     const uploadCardBackground = document.getElementById('upload_card_background');
     const backgroundImageName = document.getElementById('background_image_name');
 
@@ -64,6 +65,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (alignment === 'center') return width / 2;
         if (alignment === 'right') return width - padding;
         return padding;
+    }
+
+    function updateColorPicker(input) {
+        const picker = input.closest('.color-picker');
+        picker.querySelector('.color-picker__wheel').style.setProperty('--selected-color', input.value);
+        picker.querySelector('output').textContent = input.value.toUpperCase();
     }
 
     function positionTextEditor(currentY, font, fontSize, alignment) {
@@ -314,8 +321,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Input listeners
     [textEditor, bodyFontFamily, bodyFontSize, usernameInput, handleInput, titleInput, titleFontFamily, titleFontSize, borderWidthInput, borderColorInput, backgroundColorInput, gradientColorStartInput, gradientColorEndInput].forEach(el => {
-        el.addEventListener('input', () => drawCanvas());
+        el.addEventListener('input', () => {
+            if (el.type === 'color') updateColorPicker(el);
+            drawCanvas();
+        });
     });
+
+    [backgroundColorInput, gradientColorStartInput, gradientColorEndInput, borderColorInput].forEach(updateColorPicker);
 
     uploadCardBackground.addEventListener('change', event => {
         const file = event.target.files[0];

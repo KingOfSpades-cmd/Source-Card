@@ -157,20 +157,40 @@
                </div>
             </div>
             <div id="background_color_controls" class="input_group">
-               <label for="background_color">Background Color</label>
-               <input type="color" id="background_color" value="#ffffff">
+               <label>Background Color</label>
+               <label class="color-picker" for="background_color">
+                  <span class="color-picker__wheel" style="--selected-color: #ffffff"><span></span></span>
+                  <span class="color-picker__details"><span>Choose a color</span><output id="background_color_value">#FFFFFF</output></span>
+                  <input type="color" id="background_color" value="#ffffff" aria-label="Background color">
+               </label>
             </div>
             <div id="background_gradient_controls" class="input_group" hidden>
                <label>Gradient Colors</label>
                <div class="color-pair">
-                  <input type="color" id="gradient_color_start" value="#e0f2fe" aria-label="Gradient start color">
-                  <input type="color" id="gradient_color_end" value="#d1fae5" aria-label="Gradient end color">
+                  <label class="color-picker" for="gradient_color_start">
+                     <span class="color-picker__wheel" style="--selected-color: #e0f2fe"><span></span></span>
+                     <span class="color-picker__details"><span>Start</span><output id="gradient_color_start_value">#E0F2FE</output></span>
+                     <input type="color" id="gradient_color_start" value="#e0f2fe" aria-label="Gradient start color">
+                  </label>
+                  <label class="color-picker" for="gradient_color_end">
+                     <span class="color-picker__wheel" style="--selected-color: #d1fae5"><span></span></span>
+                     <span class="color-picker__details"><span>End</span><output id="gradient_color_end_value">#D1FAE5</output></span>
+                     <input type="color" id="gradient_color_end" value="#d1fae5" aria-label="Gradient end color">
+                  </label>
                </div>
             </div>
             <div id="background_image_controls" class="input_group" hidden>
-               <label for="upload_card_background" class="upload-background-button">Upload Image</label>
-               <input type="file" id="upload_card_background" class="visually-hidden" accept="image/*">
-               <span id="background_image_name" class="background-image-name" aria-live="polite">No image selected</span>
+               <label for="upload_card_background">Card image</label>
+               <div class="upload-background-panel">
+                  <label for="upload_card_background" class="upload-background-button">
+                     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14.5v3A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                     </svg>
+                     <span class="upload-background-copy"><strong>Choose an image</strong><span>JPG, PNG, or GIF</span></span>
+                  </label>
+                  <input type="file" id="upload_card_background" class="visually-hidden" accept="image/*">
+                  <span id="background_image_name" class="background-image-name" aria-live="polite">No image selected</span>
+               </div>
             </div>
 
             <div class="settings-divider"></div>
@@ -187,8 +207,12 @@
                   <input type="range" id="border_width" class="custom_range_input" min="1" max="10" value="1">
                </div>
                <div class="input_group">
-                  <label for="border_color">Border Color</label>
-                  <input type="color" id="border_color" value="#000000">
+                  <label>Border Color</label>
+                  <label class="color-picker" for="border_color">
+                     <span class="color-picker__wheel" style="--selected-color: #000000"><span></span></span>
+                     <span class="color-picker__details"><span>Choose a color</span><output id="border_color_value">#000000</output></span>
+                     <input type="color" id="border_color" value="#000000" aria-label="Border color">
+                  </label>
                </div>
             </div>
          </div>

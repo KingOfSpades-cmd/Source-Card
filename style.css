@@ -342,33 +342,127 @@ header span {
     gap: 10px;
 }
 
-.color-pair input,
-#background_color {
-    width: 100%;
-    height: 40px;
-    padding: 4px;
+.color-picker {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    min-height: 64px;
+    padding: 9px 12px;
     border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    background: #fff;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #fff, #f8fafc);
     box-sizing: border-box;
+    cursor: pointer;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.color-picker:hover {
+    border-color: #a7cfc1;
+    box-shadow: 0 5px 14px rgba(6, 95, 70, 0.09);
+    transform: translateY(-1px);
+}
+
+.color-picker:focus-within {
+    outline: 2px solid #059669;
+    outline-offset: 2px;
+}
+
+.color-picker__wheel {
+    display: grid;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    padding: 3px;
+    place-items: center;
+    border-radius: 50%;
+    background: conic-gradient(#f43f5e, #f97316, #facc15, #22c55e, #06b6d4, #3b82f6, #a855f7, #f43f5e);
+    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.18);
+    box-sizing: border-box;
+}
+
+.color-picker__wheel > span {
+    width: 100%;
+    height: 100%;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: var(--selected-color);
+    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.12);
+    box-sizing: border-box;
+}
+
+.color-picker__details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    gap: 3px;
+    color: #6b7280;
+    font-size: 11px;
+}
+
+.color-picker__details output {
+    color: #111827;
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.color-picker input[type="color"] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: inherit;
+    opacity: 0;
     cursor: pointer;
 }
 
 .upload-background-button {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    justify-content: center;
-    min-height: 38px;
-    padding: 0 14px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    background: #f9fafb;
+    gap: 12px;
+    min-height: 68px;
+    padding: 12px 14px;
+    border: 1px dashed #a7cfc1;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f0fdf8, #f8fafc);
     color: #374151;
     cursor: pointer;
+    transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
 }
 
 .upload-background-button:hover {
-    background: #f3f4f6;
+    border-color: #059669;
+    background: linear-gradient(135deg, #dcfce7, #f0fdfa);
+    transform: translateY(-1px);
+}
+
+.upload-background-button:focus-within {
+    outline: 2px solid #059669;
+    outline-offset: 2px;
+}
+
+.upload-background-button svg {
+    flex: 0 0 26px;
+    width: 26px;
+    height: 26px;
+    color: #047857;
+}
+
+.upload-background-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 12px;
+}
+
+.upload-background-copy strong {
+    color: #065f46;
+    font-size: 13px;
 }
 
 .visually-hidden {
