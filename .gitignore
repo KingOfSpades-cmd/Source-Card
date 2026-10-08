@@ -1,3 +1,5 @@
 details.md
 .vercel
 .env*.local
+node_modules/
+dist/
