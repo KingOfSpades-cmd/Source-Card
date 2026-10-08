@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const bodyFontFamily = document.getElementById('body_font_style');
     const bodyFontSize = document.getElementById('body_font_size');
     const bodyTextAlignment = document.getElementById('body_text_alignment');
+    const bodyTextColorMode = document.getElementById('body_text_color_mode');
+    const bodyTextColorInput = document.getElementById('body_text_color');
     
     const toggleProfile = document.getElementById('toggle_profile');
     const profileControls = document.getElementById('profile_controls');
@@ -26,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const titleFontFamily = document.getElementById('title_font_style');
     const titleFontSize = document.getElementById('title_font_size');
     const titleTextAlignment = document.getElementById('title_text_alignment');
+    const titleTextColorMode = document.getElementById('title_text_color_mode');
+    const titleTextColorInput = document.getElementById('title_text_color');
 
     const toggleBorder = document.getElementById('toggle_border');
     const borderControls = document.getElementById('border_controls');
@@ -43,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const borderColorValue = document.getElementById('border_color_value');
     const uploadCardBackground = document.getElementById('upload_card_background');
     const backgroundImageName = document.getElementById('background_image_name');
+    const removeCardBackground = document.getElementById('remove_card_background');
 
     let profileImage = null;
     let cardBackgroundImage = null;
@@ -93,13 +98,51 @@ document.addEventListener('DOMContentLoaded', function() {
         return padding;
     }
 
+    function getTextLuminance(colorData, pixelOffset) {
+        const red = colorData[pixelOffset] / 255;
+        const green = colorData[pixelOffset + 1] / 255;
+        const blue = colorData[pixelOffset + 2] / 255;
+        const linearRed = red <= 0.04045 ? red / 12.92 : ((red + 0.055) / 1.055) ** 2.4;
+        const linearGreen = green <= 0.04045 ? green / 12.92 : ((green + 0.055) / 1.055) ** 2.4;
+        const linearBlue = blue <= 0.04045 ? blue / 12.92 : ((blue + 0.055) / 1.055) ** 2.4;
+        return linearRed * 0.2126 + linearGreen * 0.7152 + linearBlue * 0.0722;
+    }
+
+    function getAutoTextColor(top, height, padding) {
+        const startY = Math.max(0, Math.min(canvas.height - 1, Math.floor(top)));
+        const endY = Math.max(startY + 1, Math.min(canvas.height, Math.ceil(top + height)));
+        const sampleWidth = Math.max(1, canvas.width - padding * 2);
+        const imageData = ctx.getImageData(padding, startY, sampleWidth, endY - startY).data;
+        const step = 8;
+        let luminanceTotal = 0;
+        let sampleCount = 0;
+
+        for (let y = 0; y < endY - startY; y += step) {
+            for (let x = 0; x < sampleWidth; x += step) {
+                const pixelOffset = (y * sampleWidth + x) * 4;
+                luminanceTotal += getTextLuminance(imageData, pixelOffset);
+                sampleCount++;
+            }
+        }
+
+        const averageLuminance = luminanceTotal / sampleCount;
+        const blackContrast = (averageLuminance + 0.05) / 0.05;
+        const whiteContrast = 1.05 / (averageLuminance + 0.05);
+        return blackContrast >= whiteContrast ? '#000000' : '#ffffff';
+    }
+
+    function getTextColor(modeControl, customColorInput, top, height, padding) {
+        const selectedMode = modeControl.querySelector('[aria-pressed="true"]').dataset.textColorMode;
+        return selectedMode === 'custom' ? customColorInput.value : getAutoTextColor(top, height, padding);
+    }
+
     function updateColorPicker(input) {
         const picker = input.closest('.color-picker');
         picker.querySelector('.color-picker__wheel').style.setProperty('--selected-color', input.value);
         picker.querySelector('output').textContent = input.value.toUpperCase();
     }
 
-    function positionTextEditor(currentY, font, fontSize, alignment) {
+    function positionTextEditor(currentY, font, fontSize, alignment, color) {
         const canvasRect = canvas.getBoundingClientRect();
         const scale = canvasRect.width / canvas.width;
         textEditor.style.left = `${40 * scale}px`;
@@ -109,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
         textEditor.style.fontSize = `${fontSize * scale}px`;
         textEditor.style.lineHeight = `${1.4 * fontSize * scale}px`;
         textEditor.style.textAlign = alignment;
+        textEditor.style.color = color;
     }
 
     // Wrap text but respect explicit newline characters
@@ -242,14 +286,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const tFont = titleFontFamily.value;
             const tSize = parseInt(titleFontSize.value);
             const alignment = getSelectedAlignment(titleTextAlignment);
+            const titleLines = wrapText(titleText, canvas.width - padding * 2, `bold ${tSize}px`, tFont);
+            const titleColor = getTextColor(titleTextColorMode, titleTextColorInput, currentY, titleLines.length * tSize * 1.2, padding);
+            const titleX = getAlignedTextX(alignment, canvas.width, padding);
 
-            ctx.fillStyle = '#000';
+            ctx.fillStyle = titleColor;
             ctx.font = `bold ${tSize}px ${tFont}`;
             ctx.textAlign = alignment;
             ctx.textBaseline = 'top';
 
-            const titleLines = wrapText(titleText, canvas.width - padding * 2, `bold ${tSize}px`, tFont);
-            const titleX = getAlignedTextX(alignment, canvas.width, padding);
             for (const line of titleLines) {
                 ctx.fillText(line, titleX, currentY);
                 currentY += tSize * 1.2;
@@ -261,17 +306,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const bFont = bodyFontFamily.value;
         const bSize = parseInt(bodyFontSize.value);
         const bodyAlignment = getSelectedAlignment(bodyTextAlignment);
-        positionTextEditor(currentY, bFont, bSize, bodyAlignment);
         let text = getEditorText();
         if (!text) text = 'Type your thoughts here...';
 
         ctx.font = `${bSize}px ${bFont}`;
-        ctx.fillStyle = '#000';
         ctx.textAlign = bodyAlignment;
         ctx.textBaseline = 'top';
 
         const bodyLines = wrapText(text, canvas.width - padding * 2, bFont, bSize);
         const bodyX = getAlignedTextX(bodyAlignment, canvas.width, padding);
+        const bodyTextColor = getTextColor(bodyTextColorMode, bodyTextColorInput, currentY, bodyLines.length * bSize * 1.4, padding);
+        positionTextEditor(currentY, bFont, bSize, bodyAlignment, bodyTextColor);
         const lastBodyLineY = currentY + Math.max(0, bodyLines.length - 1) * bSize * 1.4;
         const requiredHeight = Math.ceil(Math.max(450, lastBodyLineY + bSize * 1.4 + 10));
         if (canvas.height !== requiredHeight && !isResizingCanvas) {
@@ -283,6 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (forceBodyText) {
+            ctx.fillStyle = bodyTextColor;
             for (const line of bodyLines) {
                 ctx.fillText(line, bodyX, currentY);
                 currentY += bSize * 1.4;
@@ -350,15 +396,30 @@ document.addEventListener('DOMContentLoaded', function() {
         drawCanvas();
     });
 
+    [bodyTextColorMode, titleTextColorMode].forEach(control => {
+        control.addEventListener('click', event => {
+            const selectedButton = event.target.closest('[data-text-color-mode]');
+            if (!selectedButton) return;
+
+            control.querySelectorAll('[data-text-color-mode]').forEach(button => {
+                const isSelected = button === selectedButton;
+                button.classList.toggle('is-active', isSelected);
+                button.setAttribute('aria-pressed', String(isSelected));
+            });
+            document.getElementById(control.dataset.customControls).hidden = selectedButton.dataset.textColorMode !== 'custom';
+            drawCanvas();
+        });
+    });
+
     // Input listeners
-    [textEditor, bodyFontFamily, bodyFontSize, usernameInput, handleInput, titleInput, titleFontFamily, titleFontSize, borderWidthInput, borderColorInput, backgroundColorInput, gradientColorStartInput, gradientColorEndInput].forEach(el => {
+    [textEditor, bodyFontFamily, bodyFontSize, usernameInput, handleInput, titleInput, titleFontFamily, titleFontSize, borderWidthInput, borderColorInput, backgroundColorInput, gradientColorStartInput, gradientColorEndInput, bodyTextColorInput, titleTextColorInput].forEach(el => {
         el.addEventListener('input', () => {
             if (el.type === 'color') updateColorPicker(el);
             drawCanvas();
         });
     });
 
-    [backgroundColorInput, gradientColorStartInput, gradientColorEndInput, borderColorInput].forEach(updateColorPicker);
+    [backgroundColorInput, gradientColorStartInput, gradientColorEndInput, borderColorInput, bodyTextColorInput, titleTextColorInput].forEach(updateColorPicker);
 
     uploadCardBackground.addEventListener('change', event => {
         const file = event.target.files[0];
@@ -373,12 +434,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         loadImageFile(file, image => {
             cardBackgroundImage = image;
+            removeCardBackground.hidden = false;
             setUploadFeedback(backgroundImageName, `${file.name} uploaded`, 'success');
             drawCanvas();
         }, () => {
             setUploadFeedback(backgroundImageName, 'Could not read that image. Try another file.', 'error');
             uploadCardBackground.value = '';
         });
+    });
+
+    removeCardBackground.addEventListener('click', () => {
+        cardBackgroundImage = null;
+        uploadCardBackground.value = '';
+        removeCardBackground.hidden = true;
+        setUploadFeedback(backgroundImageName, 'PNG, JPG, GIF, or WebP. Maximum size 5 MB.', 'info');
+        drawCanvas();
     });
 
     [bodyTextAlignment, titleTextAlignment].forEach(control => {

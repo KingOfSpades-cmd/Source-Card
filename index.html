@@ -46,6 +46,21 @@
                <button type="button" class="alignment-option" data-alignment="right" aria-pressed="false">Right</button>
             </div>
          </div>
+         <div class="input_group">
+            <label>Text Color</label>
+            <div id="body_text_color_mode" class="alignment-control text-color-mode" role="group" aria-label="Body text color mode" data-custom-controls="body_custom_text_color">
+               <button type="button" class="alignment-option is-active" data-text-color-mode="auto" aria-pressed="true">Auto</button>
+               <button type="button" class="alignment-option" data-text-color-mode="custom" aria-pressed="false">Custom</button>
+            </div>
+         </div>
+         <div id="body_custom_text_color" class="input_group" hidden>
+            <label for="body_text_color">Custom Body Color</label>
+            <label class="color-picker" for="body_text_color">
+               <span class="color-picker__wheel" style="--selected-color: #111827"><span></span></span>
+               <span class="color-picker__details"><span>Choose a color</span><output>#111827</output></span>
+               <input type="color" id="body_text_color" value="#111827" aria-label="Custom body text color">
+            </label>
+         </div>
       </div>
        <!--/Typography body-->
       <!--Profile Area-->
@@ -132,6 +147,21 @@
                   <button type="button" class="alignment-option" data-alignment="right" aria-pressed="false">Right</button>
                </div>
             </div>
+            <div class="input_group">
+               <label>Text Color</label>
+               <div id="title_text_color_mode" class="alignment-control text-color-mode" role="group" aria-label="Title text color mode" data-custom-controls="title_custom_text_color">
+                  <button type="button" class="alignment-option is-active" data-text-color-mode="auto" aria-pressed="true">Auto</button>
+                  <button type="button" class="alignment-option" data-text-color-mode="custom" aria-pressed="false">Custom</button>
+               </div>
+            </div>
+            <div id="title_custom_text_color" class="input_group" hidden>
+               <label for="title_text_color">Custom Title Color</label>
+               <label class="color-picker" for="title_text_color">
+                  <span class="color-picker__wheel" style="--selected-color: #111827"><span></span></span>
+                  <span class="color-picker__details"><span>Choose a color</span><output>#111827</output></span>
+                  <input type="color" id="title_text_color" value="#111827" aria-label="Custom title text color">
+               </label>
+            </div>
          </div>
       </div>
       <!--/Typography title-->
@@ -187,10 +217,18 @@
                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14.5v3A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                      </svg>
-                     <span class="upload-background-copy"><strong>Choose an image</strong><span>JPG, PNG, or GIF</span></span>
+                     <span class="upload-background-copy"><strong>Choose an image</strong><span>JPG, PNG, GIF, or WebP</span></span>
                   </label>
                   <input type="file" id="upload_card_background" class="visually-hidden" accept="image/png,image/jpeg,image/gif,image/webp">
-                  <span id="background_image_name" class="background-image-name upload-feedback" role="status" aria-live="polite">PNG, JPG, GIF, or WebP. Maximum size 5 MB.</span>
+                  <div class="background-image-footer">
+                     <span id="background_image_name" class="background-image-name upload-feedback" role="status" aria-live="polite">PNG, JPG, GIF, or WebP. Maximum size 5 MB.</span>
+                     <button type="button" id="remove_card_background" class="remove-background-button" aria-label="Remove background image" hidden>
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                           <path d="M4 7h16m-10 4v6m4-6v6M6 7l1 13h10l1-13M9 7V4h6v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Remove image</span>
+                     </button>
+                  </div>
                </div>
             </div>
 
