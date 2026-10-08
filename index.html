@@ -73,7 +73,8 @@
                      Upload Profile
                   </label>
                </div>
-               <input type="file" id="upload_profile" accept="image/*"> 
+               <input type="file" id="upload_profile" accept="image/png,image/jpeg,image/gif,image/webp">
+               <span id="profile_upload_feedback" class="upload-feedback" role="status" aria-live="polite">PNG, JPG, GIF, or WebP. Maximum size 5 MB.</span>
             </div>
 
             <!--Username Group-->
@@ -188,8 +189,8 @@
                      </svg>
                      <span class="upload-background-copy"><strong>Choose an image</strong><span>JPG, PNG, or GIF</span></span>
                   </label>
-                  <input type="file" id="upload_card_background" class="visually-hidden" accept="image/*">
-                  <span id="background_image_name" class="background-image-name" aria-live="polite">No image selected</span>
+                  <input type="file" id="upload_card_background" class="visually-hidden" accept="image/png,image/jpeg,image/gif,image/webp">
+                  <span id="background_image_name" class="background-image-name upload-feedback" role="status" aria-live="polite">PNG, JPG, GIF, or WebP. Maximum size 5 MB.</span>
                </div>
             </div>
 

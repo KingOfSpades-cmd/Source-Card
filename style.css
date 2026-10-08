@@ -488,6 +488,14 @@ header span {
     overflow-wrap: anywhere;
 }
 
+.upload-feedback[data-state="error"] {
+    color: #b91c1c;
+}
+
+.upload-feedback[data-state="success"] {
+    color: #047857;
+}
+
 /* Form Inputs */
 .custom_text_input,
 .custom_select,

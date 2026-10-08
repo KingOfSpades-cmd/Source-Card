@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const handleInput = document.getElementById('social_media_handle_input');
     const profilePreviewSvg = document.getElementById('profile_preview_svg');
     const profilePreviewImg = document.getElementById('profile_preview_img');
+    const profileUploadFeedback = document.getElementById('profile_upload_feedback');
 
     const toggleTitle = document.getElementById('toggle_title');
     const titleControls = document.getElementById('title_controls');
@@ -47,6 +48,31 @@ document.addEventListener('DOMContentLoaded', function() {
     let cardBackgroundImage = null;
     let cardBackgroundMode = 'color';
     let isResizingCanvas = false;
+    const maxImageFileSize = 5 * 1024 * 1024;
+    const supportedImageTypes = new Set(['image/png', 'image/jpeg', 'image/gif', 'image/webp']);
+
+    function getImageFileError(file) {
+        if (file.size > maxImageFileSize) return 'Image must be 5 MB or smaller.';
+        if (!supportedImageTypes.has(file.type.toLowerCase())) return 'Choose a PNG, JPG, GIF, or WebP image.';
+        return '';
+    }
+
+    function setUploadFeedback(element, message, state = 'info') {
+        element.textContent = message;
+        element.dataset.state = state;
+    }
+
+    function loadImageFile(file, onLoad, onError) {
+        const reader = new FileReader();
+        reader.onerror = onError;
+        reader.onload = event => {
+            const image = new Image();
+            image.onload = () => onLoad(image, event.target.result);
+            image.onerror = onError;
+            image.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
 
     function getEditorText() {
         const lines = Array.from(textEditor.childNodes).map(node => {
@@ -266,21 +292,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleImageUpload(e) {
         const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const img = new Image();
-                img.onload = function() {
-                    profileImage = img;
-                    profilePreviewImg.src = event.target.result;
-                    profilePreviewImg.style.display = 'block';
-                    profilePreviewSvg.style.display = 'none';
-                    drawCanvas();
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
+        if (!file) return;
+
+        const fileError = getImageFileError(file);
+        if (fileError) {
+            setUploadFeedback(profileUploadFeedback, fileError, 'error');
+            uploadProfile.value = '';
+            return;
         }
+
+        loadImageFile(file, (image, dataUrl) => {
+            profileImage = image;
+            profilePreviewImg.src = dataUrl;
+            profilePreviewImg.style.display = 'block';
+            profilePreviewSvg.style.display = 'none';
+            setUploadFeedback(profileUploadFeedback, `${file.name} uploaded`, 'success');
+            drawCanvas();
+        }, () => {
+            setUploadFeedback(profileUploadFeedback, 'Could not read that image. Try another file.', 'error');
+            uploadProfile.value = '';
+        });
     }
 
     // Toggle logic
@@ -333,23 +364,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const file = event.target.files[0];
         if (!file) return;
 
-        const reader = new FileReader();
-        reader.onload = loadEvent => {
-            const image = new Image();
-            image.onload = () => {
-                cardBackgroundImage = image;
-                backgroundImageName.textContent = file.name;
-                drawCanvas();
-            };
-            image.onerror = () => {
-                backgroundImageName.textContent = 'Unable to load image';
-            };
-            image.src = loadEvent.target.result;
-        };
-        reader.onerror = () => {
-            backgroundImageName.textContent = 'Unable to load image';
-        };
-        reader.readAsDataURL(file);
+        const fileError = getImageFileError(file);
+        if (fileError) {
+            setUploadFeedback(backgroundImageName, fileError, 'error');
+            uploadCardBackground.value = '';
+            return;
+        }
+
+        loadImageFile(file, image => {
+            cardBackgroundImage = image;
+            setUploadFeedback(backgroundImageName, `${file.name} uploaded`, 'success');
+            drawCanvas();
+        }, () => {
+            setUploadFeedback(backgroundImageName, 'Could not read that image. Try another file.', 'error');
+            uploadCardBackground.value = '';
+        });
     });
 
     [bodyTextAlignment, titleTextAlignment].forEach(control => {
